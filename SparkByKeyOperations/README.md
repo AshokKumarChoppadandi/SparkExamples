@@ -118,3 +118,457 @@ pairRDD.combineByKey(
     (x: (Int, Int), y: (Int, Int)) => (x._1 + y._1, x._2 + y._2)	// Merge Combiners Function
   )
 ```
+
+# WORD COUNT EXAMPLE:
+
+Initial data setup
+---
+
+```
+scala> val list = List(
+     |   "hadoop hadoop spark",
+     |   "kafka cassandra hbase",
+     |   "hadoop hadoop spark",
+     |   "kafka cassandra hbase hadoop hadoop spark hadoop hadoop spark",
+     |   "hadoop hadoop spark",
+     |   "kafka cassandra hbase",
+     |   "hadoop hadoop spark",
+     |   "kafka cassandra hbase hadoop hadoop spark hadoop hadoop spark",
+     |   "hadoop hadoop spark",
+     |   "kafka cassandra hbase",
+     |   "hadoop hadoop spark",
+     |   "kafka cassandra hbase",
+     |   "hadoop hadoop spark hadoop hadoop spark",
+     |   "kafka cassandra hbase",
+     |   "kafka cassandra hbase"
+     | )
+list: List[String] = List(hadoop hadoop spark, kafka cassandra hbase, hadoop hadoop spark, kafka cassandra hbase hadoop hadoop spark hadoop hadoop spark, hadoop hadoop spark, kafka cassandra hbase, hadoop hadoop spark, kafka cassandra hbase hadoop hadoop spark hadoop hadoop spark, hadoop hadoop spark, kafka cassandra hbase, hadoop hadoop spark, kafka cassandra hbase, hadoop hadoop spark hadoop hadoop spark, kafka cassandra hbase, kafka cassandra hbase)
+```
+
+Parallelize RDD
+---
+
+```
+scala> val rdd = sc.parallelize(list, 4)
+rdd: org.apache.spark.rdd.RDD[String] = ParallelCollectionRDD[0] at parallelize at <console>:26
+```
+
+Print RDD
+---
+
+```
+scala> rdd.collect.foreach(println)
+hadoop hadoop spark
+kafka cassandra hbase
+hadoop hadoop spark
+kafka cassandra hbase hadoop hadoop spark hadoop hadoop spark
+hadoop hadoop spark
+kafka cassandra hbase
+hadoop hadoop spark
+kafka cassandra hbase hadoop hadoop spark hadoop hadoop spark
+hadoop hadoop spark
+kafka cassandra hbase
+hadoop hadoop spark
+kafka cassandra hbase
+hadoop hadoop spark hadoop hadoop spark
+kafka cassandra hbase
+kafka cassandra hbase
+```
+
+<img src="../Screenshots/DataSetup.jpg">
+
+FlatMap and print RDD
+---
+
+```
+scala> val words = rdd.flatMap(x => x.split(" "))
+words: org.apache.spark.rdd.RDD[String] = MapPartitionsRDD[1] at flatMap at <console>:25
+
+scala> words.collect.foreach(println)
+hadoop
+hadoop
+spark
+kafka
+cassandra
+hbase
+hadoop
+hadoop
+spark
+kafka
+cassandra
+hbase
+hadoop
+hadoop
+spark
+hadoop
+hadoop
+spark
+hadoop
+hadoop
+...
+```
+
+<img src="../Screenshots/FlatMapAndPrint.jpg">
+
+Map and Print RDD
+---
+
+```
+scala> val words = rdd.map(x => x.split(" "))
+words: org.apache.spark.rdd.RDD[Array[String]] = MapPartitionsRDD[2] at map at <console>:25
+
+scala> words.collect.foreach(println)
+[Ljava.lang.String;@2f5378cd
+[Ljava.lang.String;@3695e4f2
+[Ljava.lang.String;@5bdfae42
+[Ljava.lang.String;@4e396d1c
+[Ljava.lang.String;@7a98f106
+[Ljava.lang.String;@633328d3
+[Ljava.lang.String;@45382749
+[Ljava.lang.String;@406cf37f
+[Ljava.lang.String;@7d412ab5
+[Ljava.lang.String;@74ee07e
+[Ljava.lang.String;@3c88db1
+[Ljava.lang.String;@241861bc
+[Ljava.lang.String;@5078e308
+[Ljava.lang.String;@2045a469
+[Ljava.lang.String;@672710d5
+```
+
+<img src="../Screenshots/MapAndPrint.jpg">
+
+Map List and Print RDD
+---
+
+```
+scala> val words = rdd.map(x => x.split(" ").toList)
+words: org.apache.spark.rdd.RDD[List[String]] = MapPartitionsRDD[3] at map at <console>:25
+
+scala> words.collect.foreach(println)
+List(hadoop, hadoop, spark)
+List(kafka, cassandra, hbase)
+List(hadoop, hadoop, spark)
+List(kafka, cassandra, hbase, hadoop, hadoop, spark, hadoop, hadoop, spark)
+List(hadoop, hadoop, spark)
+List(kafka, cassandra, hbase)
+List(hadoop, hadoop, spark)
+List(kafka, cassandra, hbase, hadoop, hadoop, spark, hadoop, hadoop, spark)
+List(hadoop, hadoop, spark)
+List(kafka, cassandra, hbase)
+List(hadoop, hadoop, spark)
+List(kafka, cassandra, hbase)
+List(hadoop, hadoop, spark, hadoop, hadoop, spark)
+List(kafka, cassandra, hbase)
+List(kafka, cassandra, hbase)
+```
+
+<img src="../Screenshots/MapListAndPrint.jpg">
+
+Map FlatMap and Print RDD
+---
+
+```
+scala> val words = rdd.map(x => x.split(" ").toList).flatMap(x => x)
+words: org.apache.spark.rdd.RDD[String] = MapPartitionsRDD[5] at flatMap at <console>:25
+
+scala> words.collect.foreach(println)
+hadoop
+hadoop
+spark
+kafka
+cassandra
+hbase
+hadoop
+hadoop
+spark
+kafka
+cassandra
+hbase
+hadoop
+hadoop
+spark
+hadoop
+hadoop
+spark
+hadoop
+hadoop
+...
+```
+
+<img src="../Screenshots/MapFlatMapAndPrint.jpg">
+
+Generating Key Value Pairs (PairRDD) 
+---
+
+```
+scala> val wordKeyValue = words.map(x => (x, 1))
+wordKeyValue: org.apache.spark.rdd.RDD[(String, Int)] = MapPartitionsRDD[6] at map at <console>:25
+
+scala> wordKeyValue.collect.foreach(println)
+(hadoop,1)
+(hadoop,1)
+(spark,1)
+(kafka,1)
+(cassandra,1)
+(hbase,1)
+(hadoop,1)
+(hadoop,1)
+(spark,1)
+(kafka,1)
+(cassandra,1)
+(hbase,1)
+(hadoop,1)
+(hadoop,1)
+(spark,1)
+(hadoop,1)
+(hadoop,1)
+(spark,1)
+(hadoop,1)
+(hadoop,1)
+(spark,1)
+...
+```
+
+<img src="../Screenshots/KeyValuePairAndPrint.jpg">
+
+##### 1. Word Count: Using GroupByKey operation:
+
+```
+scala> val wordsGroupBy = wordKeyValue.groupByKey
+wordsGroupBy: org.apache.spark.rdd.RDD[(String, Iterable[Int])] = ShuffledRDD[7] at groupByKey at <console>:25
+
+scala> wordsGroupBy.collect.foreach(println)
+(cassandra,CompactBuffer(1, 1, 1, 1, 1, 1, 1, 1))
+(spark,CompactBuffer(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1))
+(hadoop,CompactBuffer(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1))
+(hbase,CompactBuffer(1, 1, 1, 1, 1, 1, 1, 1))
+(kafka,CompactBuffer(1, 1, 1, 1, 1, 1, 1, 1))
+
+scala> val wc1 = wordsGroupBy.map(x => (x._1, x._2.toList.size))
+wc1: org.apache.spark.rdd.RDD[(String, Int)] = MapPartitionsRDD[8] at map at <console>:25
+
+scala> wc1.collect.foreach(println)
+(cassandra,8)
+(spark,12)
+(hadoop,24)
+(hbase,8)
+(kafka,8)
+```
+
+<img src="../Screenshots/WCGroupByKey.jpg">
+
+##### 2. Word Count: Using ReduceByKey operation:
+
+```
+scala> val wordsReduceBy = wordKeyValue.reduceByKey((x, y) => x + y)
+wordsReduceBy: org.apache.spark.rdd.RDD[(String, Int)] = ShuffledRDD[9] at reduceByKey at <console>:25
+
+scala> wordsReduceBy.collect.foreach(println)
+(cassandra,8)
+(spark,12)
+(hadoop,24)
+(hbase,8)
+(kafka,8)
+```
+
+<img src="../Screenshots/WCReduceByKey.jpg">
+
+##### 3. Word Count: Using AggregateByKey operation:
+
+```
+scala> val wordsAggragteByKey = wordKeyValue.aggregateByKey(0)((x, y) => x + y, (x, y) => x + y)
+wordsAggragteByKey: org.apache.spark.rdd.RDD[(String, Int)] = ShuffledRDD[10] at aggregateByKey at <console>:25
+
+scala> wordsAggragteByKey.collect.foreach(println)
+(cassandra,8)
+(spark,12)
+(hadoop,24)
+(hbase,8)
+(kafka,8)
+```
+
+<img src="../Screenshots/WCAggregateByKey.jpg">
+
+##### 4. Word Count: Using CombineByKey operation:
+
+```
+scala> val wordsCombineByKey = wordKeyValue.combineByKey((x: Int) => 0, (x: Int, y: Int) => x + y, (x: Int, y: Int) => x + y)
+wordsCombineByKey: org.apache.spark.rdd.RDD[(String, Int)] = ShuffledRDD[11] at combineByKey at <console>:25
+
+scala> wordsCombineByKey.collect.foreach(println)
+(cassandra,4)
+(spark,8)
+(hadoop,20)
+(hbase,4)
+(kafka,4)
+```
+
+<img src="../Screenshots/WCCombineByKey.jpg">
+
+# AVERAGE SALARY FOR EACH DEPARTMENT:
+
+Initial data setup
+---
+
+```
+scala> val employees = List(
+     |   "Alice,10000,101",
+     |   "Bob,20000,102",
+     |   "Charlie,25000,101",
+     |   "David,10000,102",
+     |   "Gary,15000,101",
+     |   "Henry,12000,103"
+     | )
+employees: List[String] = List(Alice,10000,101, Bob,20000,102, Charlie,25000,101, David,10000,102, Gary,15000,101, Henry,12000,103)
+
+scala> val employeeRdd = sc.parallelize(employees, 3)
+employeeRdd: org.apache.spark.rdd.RDD[String] = ParallelCollectionRDD[1] at parallelize at <console>:26
+
+scala> employeeRdd.collect.foreach(println)
+Alice,10000,101
+Bob,20000,102
+Charlie,25000,101
+David,10000,102
+Gary,15000,101
+Henry,12000,103
+```
+
+<img src="../Screenshots/EmployeeDataSetup.jpg">
+
+Generate Department and Salary Key Value Pairs:
+---
+
+```
+scala> val empDeptKeyValue = employeeRdd.map(x => x.split(",")).map(x => (x(2).toInt, x(1).toDouble))
+empDeptKeyValue: org.apache.spark.rdd.RDD[(Int, Double)] = MapPartitionsRDD[4] at map at <console>:25
+
+scala> empDeptKeyValue.collect.foreach(println)
+(101,10000.0)
+(102,20000.0)
+(101,25000.0)
+(102,10000.0)
+(101,15000.0)
+(103,12000.0)
+```
+
+<img src="../Screenshots/DeptSalaryKeyValuePair.jpg">
+
+##### 1. Average Salary of each Department:  Using GroupByKey Operation
+---
+
+```
+scala> val salariesGroupByDept = empDeptKeyValue.groupByKey()
+salariesGroupByDept: org.apache.spark.rdd.RDD[(Int, Iterable[Double])] = ShuffledRDD[3] at groupByKey at <console>:25
+
+scala> salariesGroupByDept.collect.foreach(println)
+(102,CompactBuffer(20000.0, 10000.0))
+(103,CompactBuffer(12000.0))
+(101,CompactBuffer(25000.0, 10000.0, 15000.0))
+
+scala> val deptTotalSalaryAndEmployees = salariesGroupByDept.map(x => (x. _1, (x._2.toList.sum, x._2.toList.size)))
+deptTotalSalaryAndEmployees: org.apache.spark.rdd.RDD[(Int, (Double, Int))] = MapPartitionsRDD[4] at map at <console>:25
+
+scala> deptTotalSalaryAndEmployees.collect.foreach(println)
+(102,(30000.0,2))
+(103,(12000.0,1))
+(101,(50000.0,3))
+
+scala> val avgSalUsingGroupByKey = deptTotalSalaryAndEmployees.map(x => (x._1, (x._2._1 / x._2._2)))
+avgSalUsingGroupByKey: org.apache.spark.rdd.RDD[(Int, Double)] = MapPartitionsRDD[5] at map at <console>:25
+
+scala> avgSalUsingGroupByKey.collect.foreach(println)
+(102,15000.0)
+(103,12000.0)
+(101,16666.666666666668)
+```
+
+<img src="../Screenshots/AvgSalaryUsingGroupByKey.jpg">
+
+##### 2. Average Salary of each Department:  Using ReduceByKey Operation
+---
+
+```
+scala> val totalSalaryForEachDept = empDeptKeyValue.reduceByKey((x, y) => x + y)
+totalSalaryForEachDept: org.apache.spark.rdd.RDD[(Int, Double)] = ShuffledRDD[10] at reduceByKey at <console>:25
+
+scala> totalSalaryForEachDept.collect.foreach(println)
+(102,30000.0)
+(103,12000.0)
+(101,50000.0)
+
+scala> val numOfEmpForEachDept =  empDeptKeyValue.map(x => (x._1, 1)).reduceByKey(_ + _)
+numOfEmpForEachDept: org.apache.spark.rdd.RDD[(Int, Int)] = ShuffledRDD[12] at reduceByKey at <console>:25
+
+scala> numOfEmpForEachDept.collect.foreach(println)
+(102,2)
+(103,1)
+(101,3)
+
+scala> val joinTotalSalaryAndEmployeesForEachDept = totalSalaryForEachDept.join(numOfEmpForEachDept)
+joinTotalSalaryAndEmployeesForEachDept: org.apache.spark.rdd.RDD[(Int, (Double, Int))] = MapPartitionsRDD[15] at join at <console>:27
+
+scala> val avgSalUsingReduceByKey = joinTotalSalaryAndEmployeesForEachDept.map(x => (x._1, x._2._1 / x._2._2))
+avgSalUsingReduceByKey: org.apache.spark.rdd.RDD[(Int, Double)] = MapPartitionsRDD[16] at map at <console>:25
+
+scala> avgSalUsingReduceByKey.collect.foreach(println)
+(102,15000.0)
+(103,12000.0)
+(101,16666.666666666668)
+```
+
+<img src="../Screenshots/AvgSalaryUsingReduceByKey.jpg">
+
+##### 3. Average Salary of each Department:  Using AggregateByKey Operation
+---
+
+```
+scala> val totalSalaryAndEmployeesUsingAggregateByKey = empDeptKeyValue.aggregateByKey(
+     |   (0.0, 0)
+     | )(
+     |   (x, y) => (x._1 + y, x._2 + 1),
+     |   (x, y) => (x. _1 + y._1, x._2 + y._2)
+     | )
+totalSalaryAndEmployeesUsingAggregateByKey: org.apache.spark.rdd.RDD[(Int, (Double, Int))] = ShuffledRDD[17] at aggregateByKey at <console>:27
+
+scala> totalSalaryAndEmployeesUsingAggregateByKey.collect.foreach(println)
+(102,(30000.0,2))
+(103,(12000.0,1))
+(101,(50000.0,3))
+
+scala> val avgSalUsingAggregateByKey = totalSalaryAndEmployeesUsingAggregateByKey.map(x => (x._1, x._2._1 / x._2._2))
+avgSalUsingAggregateByKey: org.apache.spark.rdd.RDD[(Int, Double)] = MapPartitionsRDD[18] at map at <console>:25
+
+scala> avgSalUsingAggregateByKey.collect.foreach(println)
+(102,15000.0)
+(103,12000.0)
+(101,16666.666666666668)
+```
+
+<img src="../Screenshots/AvgSalaryUsingAggregateByKey.jpg">
+
+##### 4. Average Salary of each Department:  Using CombineByKey Operation
+---
+
+```
+scala> val totalSalaryAndEmployeesUsingCombineByKey = empDeptKeyValue.combineByKey(
+     |   (x: Double) => (x, 1),
+     |   (x: (Double, Int), y: Double) => (x._1 + y, x._2 + 1),
+     |   (x: (Double, Int), y: (Double, Int)) => (x. _1 + y._1, x._2 + y._2)
+     | )
+totalSalaryAndEmployeesUsingCombineByKey: org.apache.spark.rdd.RDD[(Int, (Double, Int))] = ShuffledRDD[20] at combineByKey at <console>:25
+
+scala> totalSalaryAndEmployeesUsingCombineByKey.collect.foreach(println)
+(102,(30000.0,2))
+(103,(12000.0,1))
+(101,(50000.0,3))
+
+scala> val avgSalUsingCombineByKey = totalSalaryAndEmployeesUsingCombineByKey.map(x => (x._1, x._2._1 / x._2._2))
+avgSalUsingCombineByKey: org.apache.spark.rdd.RDD[(Int, Double)] = MapPartitionsRDD[21] at map at <console>:25
+
+scala> avgSalUsingCombineByKey.collect.foreach(println)
+(102,15000.0)
+(103,12000.0)
+(101,16666.666666666668)
+```
+
+<img src="../Screenshots/AvgSalaryUsingCombineByKey.jpg">
