@@ -11,11 +11,11 @@ In this we'll cover 4 ByKey operations in Spark and all these transformations op
 
 Spark RDD groupByKey function collects the values for each key in a form of an iterator. groupByKey function groups all values with respect to a single key data in the partitions and shuffled over the network to form a key and list of values.
 
-	groupByKey()			- groups the values for each key in the RDD into a single sequence
+	groupByKey()		- groups the values for each key in the RDD into a single sequence
 	groupByKey(numTasks) 	- takes the number as an argument for tasks to execute to generate Output RDD
 	groupByKey(partitioner)	- takes the partitioner function as an argument for creating partitions in output RDD
 
-<img src="Screenshots/GroupByKeyExample.jpg">
+<img src="../Screenshots/GroupByKeyExample.jpg">
 
 SYNTAX:
 
@@ -30,11 +30,11 @@ EXAMPLE:
 Spark RDD reduceByKey function merges the values for each key using an associative reduce function (it should be Commutative and Associative in mathematical nature).
 When called on a dataset of (K, V) pairs, returns a dataset of (K, V) pairs where the values for each key are aggregated using the given reduce function. The function should be able to take arguments of same type and it returns same result data type. Like in groupByKey, the number of reduce tasks is configurable through an optional second argument.
 
-	reduceByKey(function)				- this produces hash-partitioned output with existing number of partitions / tasks
+	reduceByKey(function)			- this produces hash-partitioned output with existing number of partitions / tasks
 	reduceByKey(function, [numTasks])	- this produces hash-partitioned output with the given number of partitions / tasks
 	reduceByKey(partitioner, function)	- this produces the output using the given Partitioner and the Reducer function.
 
-<img src="Screenshots/ReduceByKeyExample.jpg">
+<img src="../Screenshots/ReduceByKeyExample.jpg">
 
 SYNTAX:
 
@@ -60,7 +60,7 @@ Spark aggregateByKey function aggregates the values of each key, using given com
 	 ii. Sequence operation function which transforms/merges data of one type [V] to another type [U]
 	iii. Combination operation function which merges multiple transformed type [U] to a single type 
 
-<img src="Screenshots/AggregateByKeyExample.jpg">
+<img src="../Screenshots/AggregateByKeyExample.jpg">
 
 SYNTAX:
 
@@ -70,10 +70,10 @@ EXAMPLE:
 
 ```
 pairRDD.aggregateByKey(
-  (0, 0)	// InitalValue
+  (0, 0)				 // InitalValue
   )(
-    (x, y) => (x._1 + y, x._2 + 1), 		// Sequence / MergeValue Function
-    (x, y) => (x._1 + y._1, x._2 + y._2)	// Merge Combiners Function
+    (x, y) => (x._1 + y, x._2 + 1), 	 // Sequence / MergeValue Function
+    (x, y) => (x._1 + y._1, x._2 + y._2) // Merge Combiners Function
   )
 ```
 
@@ -103,7 +103,7 @@ Spark combineByKey takes 3 functions as arguments:
 	Arguments are two accumulators (i.e. combiners)
 	Merge results of a single key from different partitions
 
-<img src="Screenshots/CombineByKeyExample.jpg">
+<img src="../Screenshots/CombineByKeyExample.jpg">
 
 SYNTAX:
 
@@ -113,8 +113,8 @@ EXAMPLE:
 
 ```
 pairRDD.combineByKey(
-    (x: Int) => (0, 0)												// Create Combiner Function
-    (x: Int, y: Int) => (x._1 + y, x._2 + 1), 						// Merge Value Function
+    (x: Int) => (0, 0)							// Create Combiner Function
+    (x: Int, y: Int) => (x._1 + y, x._2 + 1), 				// Merge Value Function
     (x: (Int, Int), y: (Int, Int)) => (x._1 + y._1, x._2 + y._2)	// Merge Combiners Function
   )
 ```
