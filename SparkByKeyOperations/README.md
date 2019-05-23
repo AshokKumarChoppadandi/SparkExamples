@@ -15,7 +15,7 @@ Spark RDD groupByKey function collects the values for each key in a form of an i
 	groupByKey(numTasks) 	- takes the number as an argument for tasks to execute to generate Output RDD
 	groupByKey(partitioner)	- takes the partitioner function as an argument for creating partitions in output RDD
 
-<img src="Screenshots/GroupByKeyExample.JPG">
+<img src="Screenshots/GroupByKeyExample.jpg">
 
 SYNTAX:
 
@@ -34,7 +34,7 @@ When called on a dataset of (K, V) pairs, returns a dataset of (K, V) pairs wher
 	reduceByKey(function, [numTasks])	- this produces hash-partitioned output with the given number of partitions / tasks
 	reduceByKey(partitioner, function)	- this produces the output using the given Partitioner and the Reducer function.
 
-<img src="Screenshots/ReduceByKeyExample.JPG">
+<img src="Screenshots/ReduceByKeyExample.jpg">
 
 SYNTAX:
 
@@ -60,7 +60,7 @@ Spark aggregateByKey function aggregates the values of each key, using given com
 	 ii. Sequence operation function which transforms/merges data of one type [V] to another type [U]
 	iii. Combination operation function which merges multiple transformed type [U] to a single type 
 
-<img src="Screenshots/AggregateByKeyExample.JPG">
+<img src="Screenshots/AggregateByKeyExample.jpg">
 
 SYNTAX:
 
@@ -103,7 +103,7 @@ Spark combineByKey takes 3 functions as arguments:
 	Arguments are two accumulators (i.e. combiners)
 	Merge results of a single key from different partitions
 
-<img src="Screenshots/CombineByKeyExample.JPG">
+<img src="Screenshots/CombineByKeyExample.jpg">
 
 SYNTAX:
 
