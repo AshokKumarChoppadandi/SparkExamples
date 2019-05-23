@@ -1,7 +1,7 @@
 # SPARK BY KEY OPERATIONS
 ---
 
-In this we'll cover 4 ByKey operations in Spark and all these transaformations operates on Key Value Pairs(PairRDD).
+In this we'll cover 4 ByKey operations in Spark and all these transformations operates on Key Value Pairs(PairRDD).
 
 	1. groupByKey		Lazy, Wide, Costly(Doesn't use combiner), Hash Partition
 	2. reduceByKey		Lazy, Wide, Optimized, Input & Output DataType should be same
@@ -23,22 +23,22 @@ Spark RDD groupByKey function collects the values for each key in a form of an i
 Spark RDD reduceByKey function merges the values for each key using an associative reduce function (it should be Commutative and Associative in mathematical nature).
 When called on a dataset of (K, V) pairs, returns a dataset of (K, V) pairs where the values for each key are aggregated using the given reduce function. The function should be able to take arguments of same type and it returns same result data type. Like in groupByKey, the number of reduce tasks is configurable through an optional second argument.
 
-reduceByKey(function) - this produces hash-partitioned output with existing number of partitions / tasks
-reduceByKey(function, [numTasks]) - this produces hash-partitioned output with the given number of partitions / tasks
-reduceByKey(partitioner, function) - this produces the output using the given Partitioner and the Reducer function.
+	reduceByKey(function) - this produces hash-partitioned output with existing number of partitions / tasks
+	reduceByKey(function, [numTasks]) - this produces hash-partitioned output with the given number of partitions / tasks
+	reduceByKey(partitioner, function) - this produces the output using the given Partitioner and the Reducer function.
 
 ## aggregateByKey
 ---
 
 Spark aggregateByKey function aggregates the values of each key, using given combine functions and a neutral “zero value”. The aggregateByKey function aggregates values for each key and and returns a different type of value for that key. aggregateByKey function in Spark accepts total 3 parameters,
 
-	i. Initial value or Zero value
+	Initial value or Zero value
 		It can be 0 if aggregation is type of sum of all values
 		It can be Double.MaxValue if aggregation objective is to find minimum value
 		It can be Double.MinValue value if aggregation objective is to find maximum value
 		It can be an empty List or Map object, if we just want a respective collection as an output for each key
-	ii. Sequence operation function which transforms/merges data of one type [V] to another type [U]
-	iii. Combination operation function which merges multiple transformed type [U] to a single type 
+	Sequence operation function which transforms/merges data of one type [V] to another type [U]
+	Combination operation function which merges multiple transformed type [U] to a single type 
 
 ## combineByKey
 ---
