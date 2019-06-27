@@ -175,7 +175,7 @@ kafka cassandra hbase
 kafka cassandra hbase
 ```
 
-<img src="../Screenshots/DataSetup.jpg">
+<img src="../Screenshots/DataSetup.JPG">
 
 FlatMap and print RDD
 ---
@@ -208,7 +208,7 @@ hadoop
 ...
 ```
 
-<img src="../Screenshots/FlatMapAndPrint.jpg">
+<img src="../Screenshots/FlatMapAndPrint.JPG">
 
 Map and Print RDD
 ---
@@ -235,7 +235,7 @@ scala> words.collect.foreach(println)
 [Ljava.lang.String;@672710d5
 ```
 
-<img src="../Screenshots/MapAndPrint.jpg">
+<img src="../Screenshots/MapAndPrint.JPG">
 
 Map List and Print RDD
 ---
@@ -262,7 +262,7 @@ List(kafka, cassandra, hbase)
 List(kafka, cassandra, hbase)
 ```
 
-<img src="../Screenshots/MapListAndPrint.jpg">
+<img src="../Screenshots/MapListAndPrint.JPG">
 
 Map FlatMap and Print RDD
 ---
@@ -295,7 +295,7 @@ hadoop
 ...
 ```
 
-<img src="../Screenshots/MapFlatMapAndPrint.jpg">
+<img src="../Screenshots/MapFlatMapAndPrint.JPG">
 
 Generating Key Value Pairs (PairRDD) 
 ---
@@ -329,7 +329,7 @@ scala> wordKeyValue.collect.foreach(println)
 ...
 ```
 
-<img src="../Screenshots/KeyValuePairAndPrint.jpg">
+<img src="../Screenshots/KeyValuePairAndPrint.JPG">
 
 ##### 1. Word Count: Using GroupByKey operation:
 
@@ -355,7 +355,7 @@ scala> wc1.collect.foreach(println)
 (kafka,8)
 ```
 
-<img src="../Screenshots/WCGroupByKey.jpg">
+<img src="../Screenshots/WCGroupByKey.JPG">
 
 ##### 2. Word Count: Using ReduceByKey operation:
 
@@ -371,7 +371,7 @@ scala> wordsReduceBy.collect.foreach(println)
 (kafka,8)
 ```
 
-<img src="../Screenshots/WCReduceByKey.jpg">
+<img src="../Screenshots/WCReduceByKey.JPG">
 
 ##### 3. Word Count: Using AggregateByKey operation:
 
@@ -387,7 +387,7 @@ scala> wordsAggragteByKey.collect.foreach(println)
 (kafka,8)
 ```
 
-<img src="../Screenshots/WCAggregateByKey.jpg">
+<img src="../Screenshots/WCAggregateByKey.JPG">
 
 ##### 4. Word Count: Using CombineByKey operation:
 
@@ -403,7 +403,7 @@ scala> wordsCombineByKey.collect.foreach(println)
 (kafka,4)
 ```
 
-<img src="../Screenshots/WCCombineByKey.jpg">
+<img src="../Screenshots/WCCombineByKey.JPG">
 
 # AVERAGE SALARY FOR EACH DEPARTMENT:
 
@@ -433,7 +433,7 @@ Gary,15000,101
 Henry,12000,103
 ```
 
-<img src="../Screenshots/EmployeeDataSetup.jpg">
+<img src="../Screenshots/EmployeeDataSetup.JPG">
 
 Generate Department and Salary Key Value Pairs:
 ---
@@ -451,7 +451,7 @@ scala> empDeptKeyValue.collect.foreach(println)
 (103,12000.0)
 ```
 
-<img src="../Screenshots/DeptSalaryKeyValuePair.jpg">
+<img src="../Screenshots/DeptSalaryKeyValuePair.JPG">
 
 ##### 1. Average Salary of each Department:  Using GroupByKey Operation
 ---
@@ -482,7 +482,7 @@ scala> avgSalUsingGroupByKey.collect.foreach(println)
 (101,16666.666666666668)
 ```
 
-<img src="../Screenshots/AvgSalaryUsingGroupByKey.jpg">
+<img src="../Screenshots/AvgSalaryUsingGroupByKey.JPG">
 
 ##### 2. Average Salary of each Department:  Using ReduceByKey Operation
 ---
@@ -516,7 +516,7 @@ scala> avgSalUsingReduceByKey.collect.foreach(println)
 (101,16666.666666666668)
 ```
 
-<img src="../Screenshots/AvgSalaryUsingReduceByKey.jpg">
+<img src="../Screenshots/AvgSalaryUsingReduceByKey.JPG">
 
 ##### 3. Average Salary of each Department:  Using AggregateByKey Operation
 ---
@@ -544,7 +544,7 @@ scala> avgSalUsingAggregateByKey.collect.foreach(println)
 (101,16666.666666666668)
 ```
 
-<img src="../Screenshots/AvgSalaryUsingAggregateByKey.jpg">
+<img src="../Screenshots/AvgSalaryUsingAggregateByKey.JPG">
 
 ##### 4. Average Salary of each Department:  Using CombineByKey Operation
 ---
@@ -571,4 +571,4 @@ scala> avgSalUsingCombineByKey.collect.foreach(println)
 (101,16666.666666666668)
 ```
 
-<img src="../Screenshots/AvgSalaryUsingCombineByKey.jpg">
+<img src="../Screenshots/AvgSalaryUsingCombineByKey.JPG">
