@@ -1,0 +1,1 @@
+tech_id:Int,tech_name:String,tech_description:String,release_date:Date
