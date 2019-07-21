@@ -1,0 +1,21 @@
+{
+  "data" : [
+    {
+      "NET_RCVD_AMT" : "null",
+      "RCVD_SECD_AMNT": "null",
+      "COBDATE": "31-May-19",
+      "LABEL_NAME" : "2019-05-31-026",
+      "RCVY_SECD_GCE_AMT" : "null",
+      "RNUM" : "1",
+      "FRCLSR_RFRL" : "null",
+      "VERSION" : "0",
+      "COL_AGR_ID":"bANCODE",
+      "LIQN_STRT_DT": null,
+      "col_agrmnt_src_name" : "internet-987",
+      "rcvy_secd_ccy":null,
+      "covg_lvl": "80"
+    }
+  ],
+  "totalRecord":18498,
+  "msgcode":"success"
+}
