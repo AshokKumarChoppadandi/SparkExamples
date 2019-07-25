@@ -86,5 +86,15 @@ object ApplySchemaOnDataframeDynamically {
     targetDf.printSchema()
     targetDf.show()
 
+
+    val table = "dbName.tableName"
+    val queryFromConfigFile = "INSERT INTO TABLE XXXXXXXX PARTITION (XYZ_COL1) SELECT * FROM temp_table"
+
+    val sqlQuery = queryFromConfigFile.replace("XXXXXXXX", table)
+    println(sqlQuery)
+
+    //spark.sql(sqlQuery)
+
+
   }
 }
