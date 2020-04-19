@@ -68,7 +68,7 @@ object WordCount {
   }
 
   /**
-   * WordCount: 3. Using: RDD - Using FlatMap & CountByKey
+   * WordCount: 3. Using: RDD - FlatMap & CountByKey
    * -----------------------------------------------------
    *
    * @param sparkSession - SparkSession
@@ -255,14 +255,15 @@ object WordCount {
       .toDF(TEXT)
       .createOrReplaceTempView(WORD_COUNT_TEMP_TABLE)
 
-    val wordCount12 = sparkSession.sql(
+    val query =
       s"""
         | select word, count(${WORD}) from (
-        |   select explode(split(${TEXT}, '${WORD_SPLITTER}')) as word from ${WORD_COUNT_TEMP_TABLE}
+        |   select explode(split(${TEXT}, "\\${WORD_SPLITTER}")) as $WORD from ${WORD_COUNT_TEMP_TABLE}
         | ) tmp group by ${WORD}
         | order by ${WORD}
-      """.stripMargin)
+      """.stripMargin
 
+    val wordCount12 = sparkSession.sql(query)
     wordCount12.collect()
   }
 
@@ -321,20 +322,62 @@ object WordCount {
    */
   def main(args: Array[String]): Unit = {
     val sparkSession = getSparkSession(APP_NAME, MASTER)
+    sparkSession.sparkContext.setLogLevel("ERROR")
 
+    println("\nWord Count :: 1")
+    println("------------------")
     getWordCount1(sparkSession).foreach(println)
+
+    println("\nWord Count :: 2")
+    println("------------------")
     getWordCount2(sparkSession).foreach(println)
+
+    println("\nWord Count :: 3")
+    println("------------------")
     getWordCount3(sparkSession).foreach(println)
+
+    println("\nWord Count :: 4")
+    println("------------------")
     getWordCount4(sparkSession).foreach(println)
+
+    println("\nWord Count :: 5")
+    println("------------------")
     getWordCount5(sparkSession).foreach(println)
+
+    println("\nWord Count :: 6")
+    println("------------------")
     getWordCount6(sparkSession).foreach(println)
+
+    println("\nWord Count :: 7")
+    println("------------------")
     getWordCount7(sparkSession).foreach(println)
+
+    println("\nWord Count :: 8")
+    println("------------------")
     getWordCount8(sparkSession).foreach(println)
+
+    println("\nWord Count :: 9")
+    println("------------------")
     getWordCount9(sparkSession).foreach(println)
+
+    println("\nWord Count :: 10")
+    println("------------------")
     getWordCount10(sparkSession).foreach(println)
+
+    println("\nWord Count :: 11")
+    println("------------------")
     getWordCount11(sparkSession).foreach(println)
+
+    println("\nWord Count :: 12")
+    println("------------------")
     getWordCount12(sparkSession).foreach(println)
+
+    println("\nWord Count :: 13")
+    println("------------------")
     getWordCount13(sparkSession).foreach(println)
+
+    println("\nWord Count :: 14")
+    println("------------------")
     getWordCount14(sparkSession).foreach(println)
 
   }
