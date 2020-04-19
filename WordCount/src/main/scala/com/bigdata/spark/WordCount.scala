@@ -1,5 +1,5 @@
 /**
- * This is the Spark program which has 13 variations of writing WordCount using RDD, DataFrame and DataSet APIs
+ * This is the Spark program which has 14 variations of writing WordCount using RDD, DataFrame and DataSet APIs
  * Created by Ashok Kumar Choppadandi on 18-Apr-2020.
  */
 package com.bigdata.spark
@@ -35,7 +35,7 @@ object WordCount {
   )
 
   /**
-   * WordCount: 1 - RDD : Using FlatMap, Map & ReduceByKey
+   * WordCount: 1. Using: RDD - FlatMap, Map & ReduceByKey
    * -----------------------------------------------------
    *
    * @param sparkSession - SparkSession
@@ -53,7 +53,7 @@ object WordCount {
   }
 
   /**
-   * WordCount: 2 - RDD : Using FlatMap & CountByValue
+   * WordCount: 2. Using: RDD - FlatMap & CountByValue
    * -------------------------------------------------
    *
    * @param sparkSession - SparkSession
@@ -68,8 +68,8 @@ object WordCount {
   }
 
   /**
-   * WordCount: 3 - RDD : Using FlatMap & CountByKey
-   * -----------------------------------------------
+   * WordCount: 3. Using: RDD - Using FlatMap & CountByKey
+   * -----------------------------------------------------
    *
    * @param sparkSession - SparkSession
    * @return - scala.collection.Map[java.lang.String, Long]
@@ -83,8 +83,8 @@ object WordCount {
   }
 
   /**
-   * WordCount: 4 - RDD : Using FlatMap, GroupBy & Map
-   * -------------------------------------------------
+   * WordCount: 4. Using: RDD - FlatMap, GroupBy & Map
+   * --------------------------------------------------
    * @param sparkSession - SparkSession
    * @return - Array[(String, Int)]
    */
@@ -99,7 +99,7 @@ object WordCount {
   }
 
   /**
-   * WordCount: 5 - RDD : Using FlatMap, Map & AggregateByKey
+   * WordCount: 5. Using: RDD - FlatMap, Map & AggregateByKey
    * --------------------------------------------------------
    *
    * @param sparkSession - SparkSession
@@ -117,7 +117,7 @@ object WordCount {
   }
 
   /**
-   * WordCount: 6 - RDD : Using FlatMap, Map & CombineByKey
+   * WordCount: 6. Using: RDD - FlatMap, Map & CombineByKey
    * ------------------------------------------------------
    *
    * @param sparkSession - SparkSession
@@ -134,7 +134,7 @@ object WordCount {
   }
 
   /**
-   * WordCount: 7 - RDD : Using FlatMap, Map & FoldByKey
+   * WordCount: 7. Using: RDD - FlatMap, Map & FoldByKey
    * ---------------------------------------------------
    *
    * @param sparkSession - SparkSession
@@ -151,7 +151,7 @@ object WordCount {
   }
 
   /**
-   * WordCount: 8 - RDD : Using MapPartitions, Map & ReduceByKey
+   * WordCount: 8. Using : RDD - MapPartitions, Map & ReduceByKey
    * -----------------------------------------------------------
    *
    * @param sparkSession - SparkSession
@@ -168,7 +168,7 @@ object WordCount {
   }
 
   /**
-   * WordCount: 9 - RDD : Using MapPartitions, Map & ReduceByKey
+   * WordCount: 9. Using: RDD - MapPartitions, Map & ReduceByKey
    * -----------------------------------------------------------
    *
    * @param sparkSession - SparkSession
@@ -192,7 +192,7 @@ object WordCount {
   }
 
   /**
-   * WordCount: 10 - DataFrame : Using Select, Explode, GroupBy & Count
+   * WordCount: 10. Using: DataFrame - Select, Explode, GroupBy & Count
    * ------------------------------------------------------------------
    *
    * @param sparkSession - SparkSession
@@ -212,8 +212,8 @@ object WordCount {
   }
 
   /**
-   * WordCount: 11 - DataFrame : Using Transform, Select, Explode, GroupBy & Count
-   * -----------------------------------------------------------------------------
+   * WordCount: 11. Using: DataFrame - Transform, Select, Explode, GroupBy & Count
+   * ------------------------------------------------------------------------------
    *
    * @param sparkSession - SparkSession
    * @return - Array[Row]
@@ -242,8 +242,8 @@ object WordCount {
   }
 
   /**
-   * WordCount: 12 - DataFrame : TempTable & SQL Query
-   * -------------------------------------------------
+   * WordCount: 12. Using : DataFrame - TempTable & SQL Query
+   * -------------------------------------------------------
    *
    * @param sparkSession - SparkSession
    * @return - Array[Row]
@@ -267,7 +267,7 @@ object WordCount {
   }
 
   /**
-   * WordCount: 13 - Dataset : Using FlatMap, GroupBy & Count
+   * WordCount: 13. Using : Dataset - FlatMap, GroupBy & Count
    * --------------------------------------------------------
    *
    * @param sparkSession - SparkSession
@@ -285,7 +285,7 @@ object WordCount {
   }
 
   /**
-   * WordCount: 14 - Dataset : Using Transform, FlatMap, GroupBy & Count
+   * WordCount: 14. Using : Dataset - Transform, FlatMap, GroupBy & Count
    * ---------------------------------------------------------------------
    *
    * @param sparkSession - SparkSession
@@ -320,7 +320,6 @@ object WordCount {
    * @param args - Array[String]
    */
   def main(args: Array[String]): Unit = {
-
     val sparkSession = getSparkSession(APP_NAME, MASTER)
 
     getWordCount1(sparkSession).foreach(println)
