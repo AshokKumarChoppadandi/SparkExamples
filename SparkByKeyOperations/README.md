@@ -484,7 +484,7 @@ scala> avgSalUsingGroupByKey.collect.foreach(println)
 
 <img src="../Screenshots/AvgSalaryUsingGroupByKey.JPG">
 
-##### 2. Average Salary of each Department:  Using ReduceByKey Operation
+##### 2. Average Salary of each Department: Using ReduceByKey Operation
 ---
 
 ```
@@ -572,3 +572,5 @@ scala> avgSalUsingCombineByKey.collect.foreach(println)
 ```
 
 <img src="../Screenshots/AvgSalaryUsingCombineByKey.JPG">
+
+Happy Coding...!!!
