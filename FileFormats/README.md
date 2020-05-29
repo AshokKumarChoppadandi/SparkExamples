@@ -26,7 +26,7 @@ Alice��IT�Bob��IT�CharlieІHR�
 
 Oh no! what was that? What am I looking at? Is that the data I'm looking for?
 
-<img src="../Screenshots/OhNo.gif" width="600" height="300">
+<img src="../Screenshots/OhNo.gif" width="1000" height="400">
 
 Yes, this is not the data we are interested in. We need to find out a way to read this data as we see the data from normal text files. There are multiple ways of reading the data from AVRO data file and here we are going to see the 3 most popular ways.
 
