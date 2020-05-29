@@ -1,6 +1,7 @@
 # HOW TO READ THE DATA FROM AN AVRO DATA FILE ?
 
 This is a very big question that many people have and don't know to how to read an Avro Data File.
+
 Reading an *AVRO* Data File is not easy to task. It is a special file format which cannot read as a normal text file, but there are different ways of reading an Avro data file and we are going to 3 of them which are more popular.
 
 For example, if we have an employee file in AVRO file format. We'll try read it as a normal way and see what happens.
@@ -25,6 +26,8 @@ Alice��IT�Bob��IT�CharlieІHR�
 
 Oh no! what was that? What am I looking at? Is that the data I'm looking for?
 
+<img src="../Screenshots/OhNo.gif">
+
 Yes, this is not the data we are interested in. We need to find out a way to read this data as we see the data from normal text files. There are multiple ways of reading the data from AVRO data file and here we are going to see the 3 most popular ways.
 
 Before we start reading the data from the Avro file, let's have a look at what is **Apache AVRO?**
@@ -33,7 +36,9 @@ Before we start reading the data from the Avro file, let's have a look at what i
 
 Apache Avro™, instead of calling it as a file format, we call that as a ***data serialization system.***
 
-Avro provides:
+<img src="../Screenshots/ApacheAvro.png">
+
+*Avro provides:*
 
 1. Rich data structures.
 2. A compact, fast, binary data format.
@@ -70,7 +75,8 @@ Since the schema is present when data is read, considerably less type informatio
 When a schema changes, both the old and new schema are always present when processing data, so differences may be resolved symbolically, using field names.
 Apache Avro, Avro, Apache, and the Avro and Apache logos are trademarks of The Apache Software Foundation.
 
-1. Using Apache Avro Tools Library:
+***1. Using Apache Avro Tools Library:***
+---
 
 *Pre-requisites:*
 
@@ -114,7 +120,7 @@ total 50108
 
 <img src="../Screenshots/JavaHomeAndAvroToolsSetup.JPG">
 
-Avro Tools Help:
+*Avro Tools Help:*
 
 ```
 [hadoop@localhost Avro]$ 
@@ -159,7 +165,7 @@ trevni_tojson  Dumps a Trevni file as JSON.
 
 <img src="../Screenshots/AvroToolsHelp.JPG">
 
-Getting the schema from Avro File:
+*Getting the schema from Avro File:*
 
 ```
 [hadoop@localhost Avro]$ 
@@ -192,7 +198,7 @@ Getting the schema from Avro File:
 
 <img src="../Screenshots/SchemaToConsole.JPG">
 
-Storing the Avro Schema to avsc file:
+*Storing the Avro Schema to avsc file:*
 
 ```
 [hadoop@localhost Avro]$ 
@@ -233,7 +239,7 @@ total 50112
 
 <img src="../Screenshots/SchemaToFile.JPG">
 
-Reading Data:
+*Reading Data From Avro File:*
 
 ```
 [hadoop@localhost Avro]$ 
@@ -249,7 +255,7 @@ Reading Data:
 
 <img src="../Screenshots/DataToConsole.JPG">
 
-Reading Data and Save into json file:
+*Reading Data and Save into json file:*
 
 ```
 [hadoop@localhost Avro]$ 
@@ -274,8 +280,8 @@ total 50116
 
 <img src="../Screenshots/DataToFile.JPG">
 
-2. Using Apache Spark:
-
+***2. Using Apache Spark:***
+---
 *Pre-requisites:*
 
 * Install Java 1.8 +
@@ -348,7 +354,7 @@ scala>
 
 <img src="../Screenshots/SparkShell.JPG">
 
-Reading Data Using Spark:
+*Reading Data Using Spark:*
 
 ```
 Spark context Web UI available at http://192.168.168.129:4040
@@ -395,7 +401,8 @@ scala>
 
 <img src="../Screenshots/ReadFromSpark.JPG">
 
-3. Using Apache Hive:
+***3. Using Apache Hive:***
+---
 
 Reading the data from Avro Data File using Apache Hive will be helpful whenever we deal with some huge files.
 
@@ -406,7 +413,7 @@ Reading the data from Avro Data File using Apache Hive will be helpful whenever 
 * Install Apache Hadoop & Apache Hive 1.x or later
 * Avro Tools Library
 
-i. Using the Avro Schema (avsc) file:
+*i. Using the Avro Schema (avsc) file:*
 
 ```
 [hadoop@localhost Avro]$ 
@@ -487,7 +494,7 @@ No rows affected (0.563 seconds)
 
 <img src="../Screenshots/CreatingAvroTableWithSchema.JPG">
 
-ii. Using the Structure of the data:
+*ii. Using the Structure of the data:*
 
 ```
 0: jdbc:hive2://localhost:10000/default> 
@@ -517,7 +524,13 @@ That's all. We are now able to read the data from an Avro Data File.
 
 Hope this was helpful.
 
-***Cheers & Happy Coding...!!!***
+###***Cheers & Happy Coding...!!!***
 
 References:
 
+* https://www.oracle.com/in/java/technologies/javase/javase-jdk8-downloads.html
+* https://avro.apache.org/docs/1.8.2/gettingstartedjava.html
+* https://avro.apache.org/docs/1.8.2/index.html
+* https://spark.apache.org/
+* https://spark.apache.org/docs/latest/sql-data-sources-avro.html
+* https://cwiki.apache.org/confluence/display/Hive/GettingStarted
