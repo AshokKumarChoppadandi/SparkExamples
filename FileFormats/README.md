@@ -2,9 +2,9 @@
 
 This is a very big question that many people have and don't know to how to read an Avro Data File.
 
-Reading an *AVRO* Data File is not easy to task. It is a special file format which cannot read as a normal text file, but there are different ways of reading an Avro data file and we are going to 3 of them which are more popular.
+Reading an *AVRO* Data File is not an easy task. It is a special file format which cannot read as a normal text file, but there are different ways of reading an Avro data file and we are going to see 3 of them which are more popular.
 
-For example, if we have an employee file in AVRO file format. We'll try read it as a normal way and see what happens.
+For example, if we have an employee file in AVRO file format. We'll try to read as a normal way and see what happens.
 
 ```
 [hadoop@localhost Avro]$ 
@@ -28,7 +28,7 @@ Oh no! what was that? What am I looking at? Is that the data I'm looking for?
 
 <img src="../Screenshots/OhNo.gif" width="1000" height="400">
 
-Yes, this is not the data we are interested in. We need to find out a way to read this data as we see the data from normal text files. There are multiple ways of reading the data from AVRO data file and here we are going to see the 3 most popular ways.
+Yes, this is not the data we are interested in. We need to find out a way to read this data as we see the data from a normal text files. There are multiple ways of reading the data from AVRO data file and here we are going to see the 3 most popular ways.
 
 Before we start reading the data from the Avro file, let's have a look at what is **Apache AVRO?**
 
@@ -80,9 +80,9 @@ Apache Avro, Avro, Apache, and the Avro and Apache logos are trademarks of The A
 
 *Pre-requisites:*
 
-* Install Java 1.8 +
+* Install Java 1.8+
 * Set JAVA_HOME & add bin folder to CLASSPATH
-* Avro-tools library (download from here)
+* Avro-tools library ([download here](https://mirrors.estointernet.in/apache/avro/avro-1.9.2/java/))
 
 ```
 [hadoop@localhost Avro]$ 
@@ -286,7 +286,7 @@ total 50116
 
 * Install Java 1.8 +
 * Set JAVA_HOME & add bin folder to CLASSPATH
-* Install Apache Spark (2.4.1 or later)
+* Install Apache Spark (2.4.1 or later) ([download here](https://spark.apache.org/))
 * Set SPARK_HOME & add bin folder to CLASSPATH
 * Spark Avro Library
 
@@ -524,7 +524,7 @@ That's all. We are now able to read the data from an Avro Data File.
 
 Hope this was helpful.
 
-###***Cheers & Happy Coding...!!!***
+### ***Cheers & Happy Coding...!!!***
 
 References:
 
