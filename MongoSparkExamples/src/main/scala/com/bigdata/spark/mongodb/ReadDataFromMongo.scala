@@ -19,6 +19,7 @@ object ReadDataFromMongo {
     val spark = SparkSession
       .builder()
       .appName("ReadDataFromMongo")
+      .config("spark.jars.packages", "org.mongodb.spark:mongo-spark-connector_2.11:2.4.1")
       .master("local")
       .getOrCreate()
 
@@ -30,7 +31,7 @@ object ReadDataFromMongo {
     df.show()
     df.printSchema()
 
-    df.write.mode(SaveMode.Append).json("/Users/achoppadandi/IdeaProjects/MongoSparkExamples/src/main/resources/output")
+    df.write.mode(SaveMode.Append).json("C:\\Users\\PC\\IdeaProjects\\SparkExamples\\MongoSparkExamples\\src\\main\\resources\\output")
     println("Output Written Successfully...!!!")
 
   }
