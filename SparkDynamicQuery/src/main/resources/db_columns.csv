@@ -1,0 +1,7 @@
+database,table,column
+test_db,employee_text,salary
+test_db,employee_text,id
+test_db,employee_text,name
+test_db,employee_text,dept
+test_db,employee_avro,salary
+test_db,employee_avro,id
