@@ -1,3 +1,7 @@
+/**
+ * spark-submit --master local --class com.bigdata.spark.ReadLastLineFromHDFSFile2 target/scala-2.11/WordCount-assembly-0.1.jar /user/hadoop/EDGARLogs/log20170630.csv Trailer
+ */
+
 package com.bigdata.spark
 
 import java.util.Date
@@ -10,7 +14,7 @@ object ReadLastLineFromHDFSFile2 {
     println("Start Time :: " + new Date())
     val filePath = args(0)
     val searchCode = args(1)
-    val spark = SparkSession.builder().master("local").appName("ReadLastLineFromHDFSFile2").getOrCreate()
+    val spark = SparkSession.builder()./*master("local").*/appName("ReadLastLineFromHDFSFile2").getOrCreate()
     spark.sparkContext.setLogLevel("ERROR")
 
     val df = spark.read.textFile(filePath)
@@ -18,8 +22,10 @@ object ReadLastLineFromHDFSFile2 {
     println("Number of partitions :: " + partitions)
 
     val result = df.filter(x => x.startsWith(searchCode)).coalesce(1)
-
     //result.show()
+
+    //val totalRows = df.count()
+    //println("Total Rows :: " + totalRows)
 
     if(result.count() > 0) {
       val line = result.first()
