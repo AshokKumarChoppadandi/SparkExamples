@@ -1,0 +1,3 @@
+database|table|columns_list
+test_db|employee_text|id,name,test
+test_db|employee_avro|id,name,test2,dept
