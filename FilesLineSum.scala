@@ -7,8 +7,8 @@ object FilesLineSum {
   def main(args: Array[String]): Unit = {
     val spark = SparkSession.builder().appName("FilesLineSum").master("local").getOrCreate()
 
-    val filePath1 = "/Users/ashchopp/IdeaProjects/SparkByKeyOperations/src/main/resources/FileSumInput/InputFile_1.txt"
-    val filePath2 = "/Users/ashchopp/IdeaProjects/SparkByKeyOperations/src/main/resources/FileSumInput/InputFile_2.txt"
+    val filePath1 = "./src/main/resources/FileSumInput/InputFile_1.txt"
+    val filePath2 = "./src/main/resources/FileSumInput/InputFile_2.txt"
 
     val df11 = spark.read.textFile(filePath1)
     val df21 = spark.read.textFile(filePath2)
